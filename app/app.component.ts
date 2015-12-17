@@ -1,7 +1,8 @@
 import {Component} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
-import {HeroListComponent} from './hero-list.component';
 import {DashboardComponent} from './dashboard.component';
+import {HeroListComponent} from './hero-list.component';
+import {HeroDetailComponent} from './hero-detail.component'
 
 @Component({
   selector: 'my-app',
@@ -16,8 +17,9 @@ import {DashboardComponent} from './dashboard.component';
 
 @RouteConfig([
   { path:'/', redirectTo: ['Heroes']},
-  { path: '/heroes',    name: "Heroes",    component: HeroListComponent, useAsDefault: true},
-  { path: '/dashboard', name: "Dashboard", component: DashboardComponent }
+  { path: '/dashboard', name: 'Dashboard', component: DashboardComponent },
+  { path: '/heroes',    name: 'Heroes',    component: HeroListComponent, useAsDefault: true},
+  { path: '/hero/:id',  name: 'HeroDetail', component: HeroDetailComponent}
 ])
 
 export class AppComponent { 

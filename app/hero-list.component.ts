@@ -1,18 +1,21 @@
-import {Component} from 'angular2/core';
-
-interface Hero {
-  id: number;
-  name: string
-}
+import {Component, OnInit} from 'angular2/core';
+import {Hero, HeroService} from './hero.service';
+import {Router}            from 'angular2/router';
 
 @Component({
   template:`
     <h2>My Heroes</h2>
     <ul class="heroes">
-      <li *ngFor="#hero of heroes">
+      <li *ngFor="#hero of heroes"
+        [class.selected]="hero === selectedHero"
+        (click)='onSelect(hero)'>
         <span class="badge">{{hero.id}}</span> {{hero.name}}
       </li>
     </ul>
+    <div *ngIf="selectedHero">
+      <h2>{{selectedHero.name}} is my hero</h2>
+      <button (click)='showDetails(selectedHero)'>View Details</button>
+    </div>
   `,
   styles: [`
       .heroes {list-style-type: none; margin-left: 1em; padding: 0; width: 10em;}
@@ -37,18 +40,22 @@ interface Hero {
 })
 
 export class HeroListComponent { 
-  public heroes = HEROES;
-}
+  public heroes: Hero[];
+  public selectedHero: Hero;
 
-var HEROES: Hero[] = [
-  { "id": 11, "name": "Mr. Nice"  },
-  { "id": 12, "name": "Narco"  },
-  { "id": 13, "name": "Bombasto"  },
-  { "id": 14, "name": "Celeritas"  },
-  { "id": 15, "name": "Magneta"  },
-  { "id": 16, "name": "RubberMan"  },
-  { "id": 17, "name": "Dynama"  },
-  { "id": 18, "name": "Dr IQ"  },
-  { "id": 19, "name": "Magma"  },
-  { "id": 20, "name": "Tornado"  }
-];
+  constructor(
+    private _router: Router,
+    private _service: HeroService){ }
+
+  ngOnInit(){
+    this._service.getHeroes().then(heroes => this.heroes = heroes)
+  }
+
+  onSelect(hero: Hero) { 
+    this.selectedHero = hero; 
+  }
+
+  showDetails(hero: Hero){
+    this._router.navigate(['HeroDetail', { id: hero.id }]);
+  }
+}

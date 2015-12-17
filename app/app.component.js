@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './hero-list.component', './dashboard.component'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './dashboard.component', './hero-list.component', './hero-detail.component'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', './hero-list.component', '.
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, hero_list_component_1, dashboard_component_1;
+    var core_1, router_1, dashboard_component_1, hero_list_component_1, hero_detail_component_1;
     var AppComponent;
     return {
         setters:[
@@ -18,11 +18,14 @@ System.register(['angular2/core', 'angular2/router', './hero-list.component', '.
             function (router_1_1) {
                 router_1 = router_1_1;
             },
+            function (dashboard_component_1_1) {
+                dashboard_component_1 = dashboard_component_1_1;
+            },
             function (hero_list_component_1_1) {
                 hero_list_component_1 = hero_list_component_1_1;
             },
-            function (dashboard_component_1_1) {
-                dashboard_component_1 = dashboard_component_1_1;
+            function (hero_detail_component_1_1) {
+                hero_detail_component_1 = hero_detail_component_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
@@ -37,8 +40,9 @@ System.register(['angular2/core', 'angular2/router', './hero-list.component', '.
                     }),
                     router_1.RouteConfig([
                         { path: '/', redirectTo: ['Heroes'] },
-                        { path: '/heroes', name: "Heroes", component: hero_list_component_1.HeroListComponent, useAsDefault: true },
-                        { path: '/dashboard', name: "Dashboard", component: dashboard_component_1.DashboardComponent }
+                        { path: '/dashboard', name: 'Dashboard', component: dashboard_component_1.DashboardComponent },
+                        { path: '/heroes', name: 'Heroes', component: hero_list_component_1.HeroListComponent, useAsDefault: true },
+                        { path: '/hero/:id', name: 'HeroDetail', component: hero_detail_component_1.HeroDetailComponent }
                     ]), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);

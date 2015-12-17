@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1) {
+System.register(['angular2/core', './hero.service', 'angular2/router'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,40 +8,45 @@ System.register(['angular2/core'], function(exports_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
-    var HeroListComponent, HEROES;
+    var core_1, hero_service_1, router_1;
+    var HeroListComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (hero_service_1_1) {
+                hero_service_1 = hero_service_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
             }],
         execute: function() {
             HeroListComponent = (function () {
-                function HeroListComponent() {
-                    this.heroes = HEROES;
+                function HeroListComponent(_router, _service) {
+                    this._router = _router;
+                    this._service = _service;
                 }
+                HeroListComponent.prototype.ngOnInit = function () {
+                    var _this = this;
+                    this._service.getHeroes().then(function (heroes) { return _this.heroes = heroes; });
+                };
+                HeroListComponent.prototype.onSelect = function (hero) {
+                    this.selectedHero = hero;
+                };
+                HeroListComponent.prototype.showDetails = function (hero) {
+                    this._router.navigate(['HeroDetail', { id: hero.id }]);
+                };
                 HeroListComponent = __decorate([
                     core_1.Component({
-                        template: "\n    <h2>My Heroes</h2>\n    <ul class=\"heroes\">\n      <li *ngFor=\"#hero of heroes\">\n        <span class=\"badge\">{{hero.id}}</span> {{hero.name}}\n      </li>\n    </ul>\n  ",
+                        template: "\n    <h2>My Heroes</h2>\n    <ul class=\"heroes\">\n      <li *ngFor=\"#hero of heroes\"\n        [class.selected]=\"hero === selectedHero\"\n        (click)='onSelect(hero)'>\n        <span class=\"badge\">{{hero.id}}</span> {{hero.name}}\n      </li>\n    </ul>\n    <div *ngIf=\"selectedHero\">\n      <h2>{{selectedHero.name}} is my hero</h2>\n      <button (click)='showDetails(selectedHero)'>View Details</button>\n    </div>\n  ",
                         styles: ["\n      .heroes {list-style-type: none; margin-left: 1em; padding: 0; width: 10em;}\n\n      .heroes li { cursor: pointer; position: relative; left: 0; transition: all 0.2s ease;  }\n\n      .heroes li:hover {color: #369; background-color: #EEE; left: .2em;}\n\n      .heroes .badge {\n        font-size: small;\n        color: white;\n        padding: 0.1em 0.7em;\n        background-color: #369;\n        line-height: 1em;\n        position: relative;\n        left: -1px;\n        top: -1px;\n      }\n\n      .selected { background-color: #EEE; color: #369;  }\n  "]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [router_1.Router, hero_service_1.HeroService])
                 ], HeroListComponent);
                 return HeroListComponent;
             })();
             exports_1("HeroListComponent", HeroListComponent);
-            HEROES = [
-                { "id": 11, "name": "Mr. Nice" },
-                { "id": 12, "name": "Narco" },
-                { "id": 13, "name": "Bombasto" },
-                { "id": 14, "name": "Celeritas" },
-                { "id": 15, "name": "Magneta" },
-                { "id": 16, "name": "RubberMan" },
-                { "id": 17, "name": "Dynama" },
-                { "id": 18, "name": "Dr IQ" },
-                { "id": 19, "name": "Magma" },
-                { "id": 20, "name": "Tornado" }
-            ];
         }
     }
 });
