@@ -29,8 +29,9 @@ System.register(['angular2/core'], function(exports_1) {
                 }
                 HeroService.prototype.getHeroes = function () { return heroesPromise; };
                 HeroService.prototype.getHero = function (id) {
+                    console.log('getting hero with id: ', id);
                     return heroesPromise
-                        .then(function (heroes) { return heroes.filter(function (h) { return h.id === id; })[0]; });
+                        .then(function (heroes) { return heroes.filter(function (h) { return h.id == id; })[0]; });
                 };
                 HeroService = __decorate([
                     core_1.Injectable(), 

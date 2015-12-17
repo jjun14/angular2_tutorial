@@ -30,15 +30,17 @@ System.register(['angular2/core', './hero.service', 'angular2/router'], function
                 }
                 HeroDetailComponent.prototype.ngOnInit = function () {
                     var _this = this;
-                    var id = this._routeParams.get('id');
-                    this._heroService.getHero(id).then(function (hero) { return _this.hero = hero; });
+                    if (!this.hero) {
+                        var id = this._routeParams.get('id');
+                        this._heroService.getHero(id).then(function (hero) { return _this.hero = hero; });
+                    }
                 };
                 HeroDetailComponent.prototype.goBack = function () {
-                    this._router.navigate(['Heroes', { id: this._routeParams.get('id') }]);
+                    this._router.navigate(['Heroes']);
                 };
                 HeroDetailComponent = __decorate([
                     core_1.Component({
-                        template: "\n  <h1>Hero Detail</h1>\n  <div *ngIf=\"hero\">\n    <p>{{hero.name}}</p>\n  </div>\n  <button (click)='goBack()'>Go Back</button>\n    "
+                        template: "\n  <div *ngIf=\"hero\">\n    <h1>{{hero.name}} Detail</h1>\n    <div>\n      <div>\n        <label>id: </label> {{hero.id}}\n      </div>\n      <div>\n        <label>name: </label>\n        <input type='text' \n          [(ngModel)]='hero.name'>\n      </div>\n    </div>\n  </div>\n  <button (click)='goBack()'>Go Back</button>\n    "
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams, hero_service_1.HeroService])
                 ], HeroDetailComponent);

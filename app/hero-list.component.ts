@@ -14,7 +14,7 @@ import {Router}            from 'angular2/router';
     </ul>
     <div *ngIf="selectedHero">
       <h2>{{selectedHero.name}} is my hero</h2>
-      <button (click)='showDetails(selectedHero)'>View Details</button>
+      <button (click)='showDetail(selectedHero)'>View Details</button>
     </div>
   `,
   styles: [`
@@ -45,17 +45,16 @@ export class HeroListComponent {
 
   constructor(
     private _router: Router,
-    private _service: HeroService){ }
+    private _heroService: HeroService
+  ){ }
 
   ngOnInit(){
-    this._service.getHeroes().then(heroes => this.heroes = heroes)
+    this._heroService.getHeroes().then(heroes => this.heroes = heroes)
   }
 
   onSelect(hero: Hero) { 
     this.selectedHero = hero; 
   }
 
-  showDetails(hero: Hero){
-    this._router.navigate(['HeroDetail', { id: hero.id }]);
   }
 }

@@ -9,8 +9,9 @@ export class HeroService {
   getHeroes(){ return heroesPromise; }
 
   getHero(id: number | string){
+    console.log('getting hero with id: ', id);
     return heroesPromise
-      .then(heroes => heroes.filter(h => h.id === id)[0]);
+      .then(heroes => heroes.filter(h => h.id == id)[0]);
   }
 }
 

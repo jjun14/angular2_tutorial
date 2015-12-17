@@ -4,15 +4,24 @@ import {Router, RouteParams} from 'angular2/router'
 
 @Component({
   template:`
-  <h1>Hero Detail</h1>
   <div *ngIf="hero">
-    <p>{{hero.name}}</p>
+    <h1>{{hero.name}} Detail</h1>
+    <div>
+      <div>
+        <label>id: </label> {{hero.id}}
+      </div>
+      <div>
+        <label>name: </label>
+        <input type='text' 
+          [(ngModel)]='hero.name'>
+      </div>
+    </div>
   </div>
   <button (click)='goBack()'>Go Back</button>
     `
 })
 
-export class HeroDetailComponent implements OnInit{ 
+export class HeroDetailComponent implements OnInit {
   public hero: Hero;
 
   constructor(
@@ -22,11 +31,13 @@ export class HeroDetailComponent implements OnInit{
   ){}
 
   ngOnInit(){
-    let id = this._routeParams.get('id');
-    this._heroService.getHero(id).then(hero => this.hero = hero);
+    if(!this.hero){
+      let id = this._routeParams.get('id');
+      this._heroService.getHero(id).then(hero => this.hero = hero);
+    }
   }
 
   goBack() {
-    this._router.navigate(['Heroes', { id: this._routeParams.get('id') }]);
+    this._router.navigate(['Heroes']);
   } 
 }

@@ -23,23 +23,20 @@ System.register(['angular2/core', './hero.service', 'angular2/router'], function
             }],
         execute: function() {
             HeroListComponent = (function () {
-                function HeroListComponent(_router, _service) {
+                function HeroListComponent(_router, _heroService) {
                     this._router = _router;
-                    this._service = _service;
+                    this._heroService = _heroService;
                 }
                 HeroListComponent.prototype.ngOnInit = function () {
                     var _this = this;
-                    this._service.getHeroes().then(function (heroes) { return _this.heroes = heroes; });
+                    this._heroService.getHeroes().then(function (heroes) { return _this.heroes = heroes; });
                 };
                 HeroListComponent.prototype.onSelect = function (hero) {
                     this.selectedHero = hero;
                 };
-                HeroListComponent.prototype.showDetails = function (hero) {
-                    this._router.navigate(['HeroDetail', { id: hero.id }]);
-                };
                 HeroListComponent = __decorate([
                     core_1.Component({
-                        template: "\n    <h2>My Heroes</h2>\n    <ul class=\"heroes\">\n      <li *ngFor=\"#hero of heroes\"\n        [class.selected]=\"hero === selectedHero\"\n        (click)='onSelect(hero)'>\n        <span class=\"badge\">{{hero.id}}</span> {{hero.name}}\n      </li>\n    </ul>\n    <div *ngIf=\"selectedHero\">\n      <h2>{{selectedHero.name}} is my hero</h2>\n      <button (click)='showDetails(selectedHero)'>View Details</button>\n    </div>\n  ",
+                        template: "\n    <h2>My Heroes</h2>\n    <ul class=\"heroes\">\n      <li *ngFor=\"#hero of heroes\"\n        [class.selected]=\"hero === selectedHero\"\n        (click)='onSelect(hero)'>\n        <span class=\"badge\">{{hero.id}}</span> {{hero.name}}\n      </li>\n    </ul>\n    <div *ngIf=\"selectedHero\">\n      <h2>{{selectedHero.name}} is my hero</h2>\n      <button (click)='showDetail(selectedHero)'>View Details</button>\n    </div>\n  ",
                         styles: ["\n      .heroes {list-style-type: none; margin-left: 1em; padding: 0; width: 10em;}\n\n      .heroes li { cursor: pointer; position: relative; left: 0; transition: all 0.2s ease;  }\n\n      .heroes li:hover {color: #369; background-color: #EEE; left: .2em;}\n\n      .heroes .badge {\n        font-size: small;\n        color: white;\n        padding: 0.1em 0.7em;\n        background-color: #369;\n        line-height: 1em;\n        position: relative;\n        left: -1px;\n        top: -1px;\n      }\n\n      .selected { background-color: #EEE; color: #369;  }\n  "]
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, hero_service_1.HeroService])
